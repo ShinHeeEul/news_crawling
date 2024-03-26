@@ -8,9 +8,11 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            # 저장소의 코드를 VM(CI 서버)에 다운받는 역할
             - name: Checkout repository
               uses: actions/checkout@v2
-              with:
+              # 권한을 오남용하지 않도록 방지하는 역할 - 해당 CICD 작업이 끝나면 자격 증명을 유지하지 않음
+              with: 
                 persist-credentials: false
 
             - name: Set up Python
@@ -28,8 +30,8 @@ jobs:
 
             - name: Commit file
               run: |
-                  git config --global user.name 'ShinHeeEul'
-                  git config --global user.email 'sheshe7015@gmail.com'
+                  git config --global user.name ShinHeeEul
+                  git config --global user.email sheshe7015@naver.com
                   git add naver.txt
                   git commit -m "Add naver.txt"
                   
