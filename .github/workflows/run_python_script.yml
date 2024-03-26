@@ -8,12 +8,10 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            # 저장소의 코드를 VM(CI 서버)에 다운받는 역할
             - name: Checkout repository
               uses: actions/checkout@v2
-              # 권한을 오남용하지 않도록 방지하는 역할 - 해당 CICD 작업이 끝나면 자격 증명을 유지하지 않음
-              with: 
-                persist-credentials: false
+              with:
+                  persist-credentials: false # 이 줄을 추가합니다
 
             - name: Set up Python
               uses: actions/setup-python@v2
@@ -30,13 +28,12 @@ jobs:
 
             - name: Commit file
               run: |
-                  git config --global user.name ShinHeeEul
-                  git config --global user.email sheshe7015@naver.com
+                  git config --local user.name 'koorukuroo'
+                  git config --local user.email 'koorukuroo@example.com'
                   git add naver.txt
                   git commit -m "Add naver.txt"
-                  
             - name: Push
               uses: ad-m/github-push-action@master
               with:
-                branch: "main"
-                github_token: ${{ secrets.TOKEN }}
+                  branch: "main"
+                  github_token: ${{ secrets.TOKEN }} # 여기서 GH_TOKEN은 GitHub Secrets에 저장된 PAT입니다.
